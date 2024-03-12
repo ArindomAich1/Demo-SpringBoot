@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crud.demo.dao.ProductDAO;
 import com.crud.demo.dto.ProductDTO;
 import com.crud.demo.entity.Product;
-import com.crud.demo.repository.ProductRepository;
 
 @Service
 public class ProductService {
     @Autowired
-    private ProductRepository repository;
+    private ProductDAO repository;
 
     @SuppressWarnings("null")
     public Product saveProduct(Product product) {
