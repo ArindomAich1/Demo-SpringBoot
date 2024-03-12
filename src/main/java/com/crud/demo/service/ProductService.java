@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crud.demo.dto.ProductDTO;
 import com.crud.demo.entity.Product;
 import com.crud.demo.repository.ProductRepository;
 
@@ -23,12 +24,23 @@ public class ProductService {
         return repository.saveAll(products);   
     }
 
-    public List<Product> getProducts() {
-        return repository.findAll();
+    //chang to ProductDTO
+    public List<ProductDTO> getProducts() {
+        List<Product> products = repository.findAll();
+        List<ProductDTO> productDTOs = products.stream().map(product -> new ProductDTO(product)).toList();
+        return productDTOs;
     }
 
-    public Product getProductById(int id) {
-        return repository.findById(id).orElse(null);
+    // public Product getProductById(int id) {
+    //     return repository.findById(id).orElse(null);
+    // }
+
+    public ProductDTO getProductById(int id){
+        Product product = repository.findById(id).orElse(null);
+        // System.out.println(product);
+        ProductDTO productDTO = new ProductDTO(product);
+        // System.out.println("productDTO: "+productDTO);
+        return productDTO;
     }
 
     public String deleteProduct(int id) {

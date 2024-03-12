@@ -18,4 +18,5 @@ public class Product {
     private String name;
     private int quantity;
     private double price;
+    private int secretCode; //will be hidden through DTO
 }
