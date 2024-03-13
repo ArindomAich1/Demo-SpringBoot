@@ -12,116 +12,87 @@ This is a simple Spring Boot demo project using JPA and H2 database. It has the 
 * spring-boot-starter-test
 * spring-boot-maven-plugin
 
-
 The APIs in the ProductController are:
 
-1. To add a single product:
+GET /api/v1/products - Returns all the products in the system
 
-	* API: POST /addProduct
-	* Input:
-		{
-			"name": "Product X",
-            "quantity": 1,
-			"price": 100
-		}
-	* Output:
-		{
-			"id": 1,
-			"name": "Product X",
-            "quantity": 1,
-			"price": 100
-		}
+Request: None
 
-2. To add multiple products:
+Response:
 
-	* API: POST /addMultipleProduct
-	* Input:
-		[
-			{
-				"name": "Product Y",
-                "quantity": 1,
-				"price": 200
-			},
-			{
-				"name": "Product Z",
-                "quantity": 1,
-				"price": 300
-			}
-		]
-	* Output:
-		[
-			{
-				"id": 2,
-				"name": "Product Y",
-                "quantity": 1,
-				"price": 200
-			},
-			{
-				"id": 3,
-				"name": "Product Z",
-				"quantity": 1,
-                "price": 300
-			}
-		]
+[
+  {
+    "id": 1,
+    "name": "Product 1",
+    "description": "This is product 1",
+    "price": 100.0
+  },
+  {
+    "id": 2,
+    "name": "Product 2",
+    "description": "This is product 2",
+    "price": 200.0
+  }
+]
 
-3. To get all products:
 
-	* API: GET /getProducts
-	* Input: N/A
-	* Output:
-		[
-			{
-				"id": 1,
-				"name": "Product X",
-                "quantity": 1,
-				"price": 100
-			},
-			{
-				"id": 2,
-				"name": "Product Y",
-                "quantity": 1,
-				"price": 200
-			},
-			{
-				"id": 3,
-				"name": "Product Z",
-                "quantity": 1,
-				"price": 300
-			}
-		]
+POST /api/v1/products - Creates a new product
 
-4. To get a product by ID:
+Request:
 
-	* API: GET /getProductById
-	* Input: id=2
-	* Output:
-		{
-			"id": 2,
-			"name": "Product Y",
-            "quantity": 1,
-			"price": 200
-		}
+{
+  "name": "Product 3",
+  "description": "This is product 3",
+  "price": 300.0
+}
 
-5. To update a product:
+Response:
 
-	* API: PUT /updateProduct
-	* Input:
-		{
-			"id": 2,
-			"name": "Product Y Updated",
-            "quantity": 1,
-			"price": 250
-		}
-	* Output:
-		{
-			"id": 2,
-			"name": "Product Y Updated",
-            "quantity": 1,
-			"price": 250
-		}
+{
+  "id": 3,
+  "name": "Product 3",
+  "description": "This is product 3",
+  "price": 300.0
+}
 
-6. To delete a product:
 
-	* API: DELETE /deleteProduct
-	* Input: id=2
-	* Output: "Product with id 2 deleted successfully"
+GET /api/v1/products/{id} - Returns a product by id
+
+Request: None
+
+Response:
+
+{
+  "id": 1,
+  "name": "Product 1",
+  "description": "This is product 1",
+  "price": 100.0
+}
+
+
+PUT /api/v1/products/{id} - Updates a product
+
+Request:
+
+{
+  "name": "Product 1 - Updated",
+  "description": "This is product 1 - Updated",
+  "price": 500.0
+}
+
+Response:
+
+{
+  "id": 1,
+  "name": "Product 1 - Updated",
+  "description": "This is product 1 - Updated",
+  "price": 500.0
+}
+
+
+DELETE /api/v1/products/{id} - Deletes a product
+
+Request: None
+
+Response: None
+

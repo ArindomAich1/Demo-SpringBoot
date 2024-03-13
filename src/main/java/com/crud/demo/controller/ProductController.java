@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.crud.demo.dto.ProductDTO;
+import com.crud.demo.dto.productCreateDTO;
+import com.crud.demo.dto.productReadDTO;
 import com.crud.demo.entity.Product;
 import com.crud.demo.service.ProductService;
 
@@ -27,8 +28,8 @@ public class ProductController {
     // }
 
     @PostMapping("/addProduct")
-    public Product addProduct(@RequestBody Product product) {
-        return service.saveProduct(product);
+    public Product addProduct(@RequestBody productCreateDTO productDTO) {
+        return service.saveProduct(productDTO);
     }
 
     @PostMapping("/addMultipleProduct")
@@ -36,14 +37,14 @@ public class ProductController {
         return service.saveMultipleProduct(products);
     }
 
-    // @GetMapping("/getProducts")
-    // public List<Product> getProducts() {
-    //     return service.getProducts();
-    // }
+    @GetMapping("/getProducts")
+    public List<productReadDTO> getProducts() {
+        return service.getProducts();
+    }
 
     // @GetMapping(value = "/getProductById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/getProductById/{id}")
-    public ProductDTO getProductById(@PathVariable int id) {
+    public productReadDTO getProductById(@PathVariable int id) {
         return service.getProductById(id);
     }
 

@@ -1,21 +1,36 @@
 package com.crud.demo.service;
 
 import java.util.List;
+import java.util.Optional;
+
 // import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crud.demo.dao.ProductDAO;
-import com.crud.demo.dto.ProductDTO;
+import com.crud.demo.dto.productCreateDTO;
+import com.crud.demo.dto.productReadDTO;
 import com.crud.demo.entity.Product;
+import com.crud.demo.repository.repository;
 
 @Service
 public class ProductService {
     @Autowired
-    private ProductDAO repository;
+    private repository repository;
 
-    @SuppressWarnings("null")
-    public Product saveProduct(Product product) {
+    private String generateProductCode() {
+        Optional<Product> lastProduct = repository.findTopByOrderByIdDesc();
+        long nextId = lastProduct.map(product -> product.getId() + 1).orElse(1);
+        return String.format("prod%04d", nextId);
+    }
+    
+    public Product saveProduct(productCreateDTO productDTO) {
+        Product product = new Product();
+        product.setName(productDTO.getName());
+        product.setQuantity(productDTO.getQuantity());
+        product.setPrice(productDTO.getPrice());
+
+        String productCode = generateProductCode();
+        product.setCode(productCode);
         return repository.save(product);
     }
 
@@ -25,9 +40,9 @@ public class ProductService {
     }
 
     //chang to ProductDTO
-    public List<ProductDTO> getProducts() {
+    public List<productReadDTO> getProducts() {
         List<Product> products = repository.findAll();
-        List<ProductDTO> productDTOs = products.stream().map(product -> new ProductDTO(product)).toList();
+        List<productReadDTO> productDTOs = products.stream().map(product -> new productReadDTO(product)).toList();
         return productDTOs;
     }
 
@@ -35,10 +50,10 @@ public class ProductService {
     //     return repository.findById(id).orElse(null);
     // }
 
-    public ProductDTO getProductById(int id){
+    public productReadDTO getProductById(int id){
         Product product = repository.findById(id).orElse(null);
         // System.out.println(product);
-        ProductDTO productDTO = new ProductDTO(product);
+        productReadDTO productDTO = new productReadDTO(product);
         // System.out.println("productDTO: "+productDTO);
         return productDTO;
     }
