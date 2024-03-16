@@ -1,20 +1,15 @@
 package com.crud.demo.dto;
 
-import com.crud.demo.entity.Product;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class productReadDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductReadDTO {
     private int id;
     private String name;
     private int quantity;
     private double price;
-
-    public productReadDTO(Product product) {
-        this.id = product.getId();
-        this.name = product.getName();
-        this.quantity = product.getQuantity();
-        this.price = product.getPrice();  
-    }
 }

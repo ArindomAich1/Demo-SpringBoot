@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.crud.demo.dto.productCreateDTO;
-import com.crud.demo.dto.productReadDTO;
-import com.crud.demo.entity.Product;
+
+import com.crud.demo.dao.Product;
+import com.crud.demo.dto.ProductCreateDTO;
+import com.crud.demo.dto.ProductReadDTO;
 import com.crud.demo.service.ProductService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,36 +22,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ProductController {
     @Autowired
     private ProductService service;
-    
-    // @GetMapping("/")
-    // public String home() {
-    //     return "Add template from template folder";
-    // }
 
     @PostMapping("/addProduct")
-    public Product addProduct(@RequestBody productCreateDTO productDTO) {
+    public ProductReadDTO addProduct(@RequestBody ProductCreateDTO productDTO) {
         return service.saveProduct(productDTO);
     }
 
     @PostMapping("/addMultipleProduct")
-    public List<Product> addMultipleProduct(@RequestBody List<Product> products) {
-        return service.saveMultipleProduct(products);
+    public List<ProductReadDTO> addMultipleProduct(@RequestBody List<ProductCreateDTO> productCreateDTOSDTOs) {
+        return service.saveMultipleProduct(productCreateDTOSDTOs);
     }
 
     @GetMapping("/getProducts")
-    public List<productReadDTO> getProducts() {
+    public List<ProductReadDTO> getProducts() {
         return service.getProducts();
     }
 
     // @GetMapping(value = "/getProductById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/getProductById/{id}")
-    public productReadDTO getProductById(@PathVariable int id) {
+    public ProductReadDTO getProductById(@PathVariable int id) {
         return service.getProductById(id);
     }
 
     @PutMapping("/updateProduct")
-    public Product updateProduct(@RequestBody Product product) {
-        return service.updateProduct(product);
+    public ProductReadDTO updateProduct(@RequestBody ProductReadDTO productReadDTO) {
+        return service.updateProduct(productReadDTO);
     }
 
     @DeleteMapping("/deleteProduct/{id}")
