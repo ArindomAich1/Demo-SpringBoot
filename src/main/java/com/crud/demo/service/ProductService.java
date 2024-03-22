@@ -29,6 +29,8 @@ public class ProductService {
     @Autowired
     private ProductMapper mapper;
 
+
+
     private String generateProductCode() {
         Instant timestamp = Instant.now();
         OffsetDateTime utc = timestamp.atOffset(ZoneOffset.UTC);
@@ -110,7 +112,8 @@ public class ProductService {
                 savedProduct.getId(),
                 savedProduct.getName(),
                 savedProduct.getQuantity(),
-                savedProduct.getPrice()
+                savedProduct.getPrice(),
+                savedProduct.getUser().getId()
         );
 
         return updatedProductReadDTO;

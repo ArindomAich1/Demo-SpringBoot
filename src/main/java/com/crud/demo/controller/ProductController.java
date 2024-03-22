@@ -2,13 +2,15 @@ package com.crud.demo.controller;
 
 import java.util.List;
 
+import com.crud.demo.dao.User;
+import com.crud.demo.dto.UserDTO;
+import com.crud.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crud.demo.dao.Product;
 import com.crud.demo.dto.ProductCreateDTO;
 import com.crud.demo.dto.ProductReadDTO;
 import com.crud.demo.service.ProductService;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ProductController {
     @Autowired
     private ProductService service;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/addProduct")
     public ProductReadDTO addProduct(@RequestBody ProductCreateDTO productDTO) {
@@ -52,6 +57,11 @@ public class ProductController {
     @DeleteMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable int id) {
         return service.deleteProduct(id);
+    }
+
+    @PostMapping("/addUserAndProduct")
+    public UserDTO addUserAndProduct(@RequestBody User user) {
+        return userService.saveUserWithProducts(user, user.getProducts());
     }
 
     
