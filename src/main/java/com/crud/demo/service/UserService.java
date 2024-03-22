@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.stream.Collectors;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -47,7 +48,7 @@ public class UserService {
         return String.format("prod"+timestampAsString);
     }
 
-    @Transactional
+    @Transactional  //AOP concept and types
     public UserDTO saveUserWithProducts(User user, List<Product> products) {
         // Save the user first
         User savedUser = userRepository.save(user);
@@ -76,5 +77,26 @@ public class UserService {
 
 
         return userDTO;
+    }
+
+    public String deleteUser(int id) {
+        userRepository.deleteById(id);
+        return "User has been deleted";
+    }
+
+    public List<UserDTO> getUsers() {
+        List<User> users = userRepository.findAll();
+
+        List<UserDTO> userDTOs = users.stream().map(user ->
+                new UserDTO(
+                        user.getId(),
+                        user.getName(),
+                        productMapper.daosToDAOSConversion(user.getProducts())
+                )
+        ).collect(Collectors.toList());
+
+
+        LOGGER.info("getting list data {}", userDTOs);
+        return userDTOs;
     }
 }

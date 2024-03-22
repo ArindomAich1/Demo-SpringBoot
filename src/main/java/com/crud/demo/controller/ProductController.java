@@ -64,5 +64,15 @@ public class ProductController {
         return userService.saveUserWithProducts(user, user.getProducts());
     }
 
+    @DeleteMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable int id) {
+        return userService.deleteUser(id);
+    }
+
+    @GetMapping("/getUsers")
+    public List<UserDTO> getUsers() {
+        return userService.getUsers();
+    }
+
     
 }

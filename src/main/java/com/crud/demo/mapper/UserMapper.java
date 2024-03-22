@@ -9,9 +9,13 @@ import com.crud.demo.dto.UserDTO;
 import org.mapstruct.Mapper;
 
 import com.crud.demo.dao.Product;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     UserDTO daoToDTOConversion(User user);
+
+
+    List<UserDTO> daosToDTOsConversion(List<User> users);
 
 }
