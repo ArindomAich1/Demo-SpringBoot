@@ -94,7 +94,7 @@ public class UserService {
                         productMapper.daosToDAOSConversion(user.getProducts())
                 )
         ).collect(Collectors.toList());
-
+        //SQL or OQL
 
         LOGGER.info("getting list data {}", userDTOs);
         return userDTOs;
